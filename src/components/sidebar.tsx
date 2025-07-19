@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
 import Link from "next/link";
-import { sidebarType } from "../lib/type";
-import { sidebarItem } from "../lib/sidebarItem";
+import { sidebarType } from "@/lib/type";
+import { sidebarItem } from "@/lib/sidebarItem";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
 
@@ -17,9 +17,9 @@ export function Sidebar() {
             <Link
               href={item.href}
               className={clsx(
-              'flex items-center py-4 px-6 hover:bg-gray-200 transition rounded-2xl',
+                "flex items-center py-4 px-6 hover:bg-gray-200 transition rounded-2xl",
                 {
-                  'bg-indigo-100 transition rounded-2xl': path === item.href,
+                  "bg-indigo-100 transition rounded-2xl": path === item.href,
                 }
               )}
             >
