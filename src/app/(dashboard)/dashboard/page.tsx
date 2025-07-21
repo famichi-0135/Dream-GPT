@@ -56,9 +56,9 @@ export default function Page() {
     <div className="space-y-8">
       <h1 className="text-4xl font-bold text-gray-900">目標を作成する</h1>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 ">
         {/* 左側：入力フォーム */}
-        <div className="px-6 py-6 border rounded-xl space-y-6 bg-white">
+        <div className="px-6 py-6 rounded-xl space-y-6 bg-white shadow-md p-5  border-gray-200 transition-all hover:shadow-lg">
           <Input placeholder="目標を入力" />
           <div className="flex space-x-4">
             <Input className="w-full max-w-[150px]" placeholder="数値を入力" />
@@ -96,9 +96,9 @@ export default function Page() {
         </div>
 
         {/* 右側：ダミー枠 */}
-        <div className="px-6 py-6 border rounded-xl space-y-6 bg-white">
+        <div className="px-6 py-6  rounded-xl space-y-6 bg-white shadow-md p-5  border-gray-200 transition-all hover:shadow-lg">
           {/* TODO: 右側の内容を追加 */}
-          <h1 className="text-xl font-bold">AIに支持を出すうえで大事なこと</h1>
+          <h1 className="text-xl font-bold">空白</h1>
         </div>
       </div>
     </div>

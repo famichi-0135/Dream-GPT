@@ -1,5 +1,7 @@
 export default function Page() {
   return (
-    <h1>calender</h1>
-  )
+    <div>
+      <h1 className="text-4xl font-bold text-gray-900">カレンダー</h1>
+    </div>
+  );
 }
