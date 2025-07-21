@@ -3,3 +3,9 @@ export type sidebarType = {
   href: string;
   icon: React.FC;
 };
+
+export type todoList = {
+  title: string;
+  month: number;
+  date: number;
+};
