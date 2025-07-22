@@ -1,4 +1,5 @@
 import { getDay, getMonth } from "date-fns";
+import { Button } from "./ui/button";
 
 export function DIYCalender() {
   const data = new Date();
@@ -44,32 +45,42 @@ export function DIYCalender() {
   }
 
   return (
-    <div>
-      <h1>{lastday}</h1>
-      <h1>{day}</h1>
-      <h1>{data.getMonth() + 1}月</h1>
-      <h1>{data.toLocaleDateString()}</h1>
-      <h1>先月の最終日は{lastMonthDate}日</h1>
-      <h1>今月の最終日は{nowMonthDate}日</h1>
-      <div>
-        <table>
+    <div className="mx-4">
+      {/* <div className="flex">
+        <h1>{lastday}</h1>
+        <h1>{day}</h1>
+        <h1>{data.getMonth() + 1}月</h1>
+        <h1>{data.toLocaleDateString()}</h1>
+        <h1>先月の最終日は{lastMonthDate}日</h1>
+        <h1>今月の最終日は{nowMonthDate}日</h1>
+      </div> */}
+      <div className="border-1 rounded-4xl bg-white hover:shadow-md transition p-8">
+        <div className="flex justify-between mb-10">
+          <Button className="mx-10">次の月</Button>
+          <h1 className="text-3xl font-bold">10月</h1>
+          <Button className="mx-10">前の月</Button>
+        </div>
+
+        <table className=" lg:w-4xl md:w-lg sm:w-sm lg:h-4xl md:h-xl flex-col">
           <thead>
             <tr>
-              <th>日</th>
-              <th>月</th>
-              <th>火</th>
-              <th>水</th>
-              <th>木</th>
-              <th>金</th>
-              <th>土</th>
+              <th className="pb-4 text-xl text-red-700">日</th>
+              <th className="pb-4 text-xl">月</th>
+              <th className="pb-4 text-xl">火</th>
+              <th className="pb-4 text-xl">水</th>
+              <th className="pb-4 text-xl">木</th>
+              <th className="pb-4 text-xl">金</th>
+              <th className="pb-4 text-xl text-blue-700">土</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="">
             {calender.map((week, weekIdx) => (
               <tr key={weekIdx}>
                 {week.map((days: number) => (
-                  <td key={days} className="">
-                    {days}
+                  <td key={days}>
+                    <div className="flex items-center justify-center h-15 text-xl rounded-xl hover:bg-indigo-100 transition m-1">
+                      {days}
+                    </div>
                   </td>
                 ))}
               </tr>
