@@ -19,6 +19,20 @@ export default function Page() {
           <TodoCard title="勉強" month={12} date={23} />
           <TodoCard title="勉強" month={12} date={23} />
         </div>
+        <div className="space-y-4">
+          <h2 className="font-bold text-3xl">3週目</h2>
+          <TodoCard title="勉強" month={12} date={23} />
+          <TodoCard title="勉強" month={12} date={23} />
+          <TodoCard title="勉強" month={12} date={23} />
+          <TodoCard title="勉強" month={12} date={23} />
+        </div>
+        <div className="space-y-4">
+          <h2 className="font-bold text-3xl">4週目</h2>
+          <TodoCard title="勉強" month={12} date={23} />
+          <TodoCard title="勉強" month={12} date={23} />
+          <TodoCard title="勉強" month={12} date={23} />
+          <TodoCard title="勉強" month={12} date={23} />
+        </div>
       </div>
     </div>
   );
