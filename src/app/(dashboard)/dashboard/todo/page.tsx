@@ -16,7 +16,11 @@ export default function Page() {
       <div className="grid lg:grid-cols-2 md:grid-cols-1 space-x-10 space-y-8">
         {data?.schedules?.map((plan) => (
           <div className="space-y-4" key={plan.periodNumber}>
-            <h2 className="font-bold text-3xl">{data.periodType === "年"? `${plan.periodNumber}年目`:`${plan.periodNumber}週目`}</h2>
+            <h2 className="font-bold text-3xl">
+              {data.periodType === "年"
+                ? `${plan.periodNumber}年目`
+                : `${plan.periodNumber}ヵ月目`}
+            </h2>
             {plan?.plans?.map((card) => (
               <TodoCard
                 key={card.id}
