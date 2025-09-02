@@ -19,7 +19,7 @@ import { Loader2Icon } from "lucide-react";
 
 export default function Page() {
   const [YearOrMonth, setYearOrMonth] = useState<string>("ヵ月");
-  const { pending } = useFormStatus();
+
   const handleForm = async (formData: FormData) => {
     const promptBody: todoRequest = {
       goal: formData.get("goal") as string,
@@ -33,8 +33,10 @@ export default function Page() {
       body: JSON.stringify(promptBody),
     });
 
-    // const text = await res.json();
-    console.log(res);
+    const text = await res.json();
+    // const prevTodos = localStorage.getItem("todos");
+    localStorage.setItem("todos", text.data);
+    console.log(text.data);
   };
 
   const handleItem = (item: string) => {
@@ -63,7 +65,6 @@ export default function Page() {
         </div>
       );
     }
-    return <button disabled={status.pending}>Submit</button>;
   }
 
   return (

@@ -13,13 +13,16 @@ export async function POST(req: NextRequest) {
   const { goal, explain, limitNum, YearOrMonth } = body;
   console.log(goal, explain, limitNum, YearOrMonth);
   const response = await ai.models.generateContent({
-    model: "gemini-2.5-pro",
+    model: "gemini-2.5-flash",
     contents: `${goal}を${limitNum}${YearOrMonth}で達成するためのベストプランを考案してください。以下の指示を必ず守ること。「${explain}」`,
     config: {
       responseMimeType: "application/json",
       responseSchema: {
         type: Type.OBJECT,
         properties: {
+          planName: {
+            type: Type.STRING,
+          },
           periodType: {
             // "week" or "month"
             type: Type.STRING,
@@ -47,12 +50,12 @@ export async function POST(req: NextRequest) {
             },
           },
         },
-        propertyOrdering: ["periodType", "schedules"],
+        propertyOrdering: ["planName", "periodType", "schedules"],
       },
     },
   });
   console.log(response.text);
   // const data = await JSON.stringify(response.text as string);
   // console.log(data);
-  return NextResponse.json({ status: 200 });
+  return NextResponse.json({ status: 200, data: response.text });
 }
