@@ -6,6 +6,18 @@ export type sidebarType = {
 
 export type todoList = {
   title: string;
-  month: number;
-  date: number;
+  deadline: string
+};
+
+export type todoData = {
+  periodType: string;
+  planName: string;
+  schedules: {
+    periodNumber: number;
+    plans: {
+      id: number;
+      title: string;
+      deadline: string;
+    }[];
+  }[];
 };

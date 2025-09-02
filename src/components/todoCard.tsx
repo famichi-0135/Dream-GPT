@@ -1,7 +1,7 @@
 import { todoList } from "@/lib/type";
 
 export function TodoCard(props: todoList) {
-  const { title, month, date } = props;
+  const { title, deadline } = props;
   return (
     <div>
       <div className="bg-white rounded-xl shadow-md p-5 border border-gray-200 transition-all hover:shadow-lg">
@@ -18,9 +18,7 @@ export function TodoCard(props: todoList) {
                 高優先度
               </span>
 
-              <span className="text-gray-500">
-                期日: {month}月{date}日
-              </span>
+              <span className="text-gray-500">期日: {deadline}</span>
             </div>
           </div>
 
