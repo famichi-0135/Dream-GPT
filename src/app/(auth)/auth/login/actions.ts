@@ -22,7 +22,7 @@ export async function login(formData: FormData) {
   }
 
   revalidatePath("/", "layout");
-  redirect("/");
+  redirect("/dashboard");
 }
 
 export async function signup(formData: FormData) {
@@ -47,13 +47,12 @@ export async function signup(formData: FormData) {
 
 export async function signOut() {
   const supabase = await createClient();
-  const { error } = await supabase.auth.signOut({
-    scope: "global",
-    
-  });
+  const { error } = await supabase.auth.signOut();
+  console.log(error);
+  console.log("叩かれてます");
   if (error) {
-    redirect("/error");
+    redirect("auth/error");
   }
   revalidatePath("/", "layout");
-  redirect("/auth/login");
+  redirect("/");
 }

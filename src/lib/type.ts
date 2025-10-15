@@ -6,7 +6,7 @@ export type sidebarType = {
 
 export type todoList = {
   title: string;
-  deadline: string
+  deadline: string;
 };
 
 export type todoData = {
@@ -20,4 +20,12 @@ export type todoData = {
       deadline: string;
     }[];
   }[];
+};
+
+export type DBPushDataType = {
+  goalId: string;
+  periodNum: number;
+  title: string;
+  deadline: string;
+  userId: string | undefined;
 };
