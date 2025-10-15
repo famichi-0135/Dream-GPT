@@ -1,23 +1,22 @@
-"use client";
+import { SelectUI } from "@/components/part/select";
+import { TodoCardUI } from "@/components/part/todoCard";
 import { TodoCard } from "@/components/todoCard";
 import { todoData } from "@/lib/type";
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 
 export default function Page() {
-  const [data, setData] = useState<todoData | null>(null);
-  useEffect(() => {
-    setData(JSON.parse(localStorage.getItem("todos") as string));
-    // console.log(data);
-  }, []);
-
   return (
     <div className="space-y-6">
-      <h1 className="text-4xl font-bold text-gray-900">Todoリスト</h1>
+      <div className="md:flex sm:flex-row space-x-3 space-y-6">
+        <h1 className="text-4xl font-bold text-gray-900">Todoリスト</h1>
+        <SelectUI />
+      </div>
+
       <div className="grid lg:grid-cols-2 md:grid-cols-1 space-x-10 space-y-8">
-        {data?.schedules?.map((plan) => (
+        {/* {data?.schedules?.map((plan) => (
           <div className="space-y-4" key={plan.periodNumber}>
             <h2 className="font-bold text-3xl">
-              {data.periodType === "年"
+              {data.periodType === "year"
                 ? `${plan.periodNumber}年目`
                 : `${plan.periodNumber}ヵ月目`}
             </h2>
@@ -29,7 +28,8 @@ export default function Page() {
               />
             ))}
           </div>
-        ))}
+        ))} */}
+        <TodoCardUI />
       </div>
     </div>
   );
