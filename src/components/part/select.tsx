@@ -4,7 +4,7 @@ import { SelectUiParts } from "./selectParts";
 
 export async function SelectUI() {
   const data = await selectAllGoals();
-  console.log(data);
+  // console.log(data);
 
   return <SelectUiParts data={data || []} />;
 }

@@ -26,7 +26,7 @@ export async function selectAllGoals() {
     const supabase = await createClient();
     const { data, error } = await supabase
       .from("Goals")
-      .select("title, goalId");
+      .select("title, goalId, MorY, deadlineNum");
     console.log(data);
     return data;
   } catch (error) {
@@ -44,7 +44,8 @@ export async function selectAllPlans(goalID: string) {
       .from("Plans")
       .select()
       .eq("goalId", goalID)
-      .eq("userId", user?.id);
+      .eq("userId", user?.id)
+      .order("periodNum", { ascending: true });
     console.log(data + "hoge");
     console.log(error);
     return data;
