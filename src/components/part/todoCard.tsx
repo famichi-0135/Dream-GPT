@@ -18,8 +18,12 @@ interface plans {
 
 export function TodoCardUI() {
   const [plans, setPlans] = useState<plans[]>([]);
-
-  const goalId = useAtomValue(selectGoalIder);
+  const goalId_MorY = useAtomValue(selectGoalIder);
+  console.log(goalId_MorY + "hogehoge");
+  const split: string[] = (goalId_MorY ?? "").split("/");
+  const goalId = split[0];
+  const MorY = split[1];
+  const deadlineNum = split[2];
   useEffect(() => {
     const fetchPlan = async (goalId: string) => {
       const plans = await selectAllPlans(goalId);
@@ -27,20 +31,28 @@ export function TodoCardUI() {
     };
     fetchPlan(goalId as string);
     console.log(plans + "hoge");
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [goalId]);
-  // const plans = await selectAllPlans(goalId);
   // console.log(plans);
+  // let count = 0;
   return (
-    <div className="space-y-4">
-      {/* <p>{goalId}</p> */}
-      {plans?.map((card: plans) => (
-        <TodoCard
-          key={card.uniqueId}
-          title={card.title}
-          deadline={card.deadline}
-        />
+    <>
+      {Array.from({ length: parseInt(deadlineNum) }).map((_, i) => (
+        <div key={i} className="space-y-4">
+          <h2 key={i} className="font-bold text-3xl">
+            {`${i + 1}${MorY === "年" ? "年目" : "ヵ月目"}`}
+          </h2>
+          {plans?.map((card: plans) =>
+            card.periodNum == i + 1 ? (
+              <TodoCard
+                key={card.uniqueId}
+                title={card.title}
+                deadline={card.deadline}
+              />
+            ) : null
+          )}
+        </div>
       ))}
-    </div>
+    </>
   );
 }

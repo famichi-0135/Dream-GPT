@@ -8,37 +8,41 @@ import {
 } from "@/components/ui/select";
 
 import { atom, useAtom } from "jotai";
-import { atomWithStorage } from "jotai/utils";
+// import { atomWithStorage } from "jotai/utils";
 import { useEffect } from "react";
 
-export const selectGoalIder = atom<string | null>(null);
+export const selectGoalIder = atom<null | string>(null);
 export function SelectUiParts({
   data,
 }: {
-  data: { title: string; goalId: string }[];
+  data: { title: string; goalId: string; MorY: string; deadlineNum: number }[];
 }) {
   const [selectGoalId, setSelectGoalId] = useAtom(selectGoalIder);
-  const handleValue = (data: string) => {
-    console.log(data);
-    setSelectGoalId(data);
+  const handleValue = (goalId_MorY: string) => {
+    console.log(goalId_MorY);
+    setSelectGoalId(goalId_MorY);
   };
 
   useEffect(() => {
-    const setSelector = (data: { title: string; goalId: string }[]) => {
-      setSelectGoalId(data[0].goalId);
+    const setSelector = (
+      data: {
+        title: string;
+        goalId: string;
+        MorY: string;
+        deadlineNum: number;
+      }[]
+    ) => {
+      console.log(`${data[0].goalId}/${data[0].MorY}/${data[0].deadlineNum}`);
+      setSelectGoalId(
+        `${data[0].goalId}/${data[0].MorY}/${data[0].deadlineNum}`
+      );
     };
     setSelector(data);
   }, []);
 
   return (
     <Select
-      defaultValue={
-        data && data.length > 0
-          ? data[0].goalId === null
-            ? "null"
-            : data[0].goalId
-          : "No data"
-      }
+      defaultValue={`${data[0].goalId}/${data[0].MorY}/${data[0].deadlineNum}`}
       onValueChange={(value: string) => handleValue(value)}
     >
       <SelectTrigger className="w-[60%]">
@@ -49,7 +53,10 @@ export function SelectUiParts({
         <SelectItem value="dark">Dark</SelectItem>
         <SelectItem value="system">System</SelectItem> */}
         {data?.map((a) => (
-          <SelectItem key={a.goalId} value={a.goalId}>
+          <SelectItem
+            key={a.goalId}
+            value={`${a.goalId}/${a.MorY}/${a.deadlineNum}`}
+          >
             {a.title}
           </SelectItem>
         ))}
