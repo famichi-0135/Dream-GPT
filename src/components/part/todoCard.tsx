@@ -1,12 +1,12 @@
 "use client";
 
-import { useAtomValue } from "jotai";
+import { atom, useAtom, useAtomValue } from "jotai";
 import { selectGoalIder } from "./selectParts";
 import { selectAllPlans } from "@/lib/query";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { TodoCard } from "../todoCard";
 
-interface plans {
+export interface plans {
   uniqueId: string;
   periodNum: number;
   title: string;
@@ -15,11 +15,10 @@ interface plans {
   goalId: string;
   userId: string;
 }
-
+export const Plans = atom<null | plans[]>(null);
 export function TodoCardUI() {
-  const [plans, setPlans] = useState<plans[]>([]);
+  const [plans, setPlans] = useAtom<null | plans[]>(Plans);
   const goalId_MorY = useAtomValue(selectGoalIder);
-  console.log(goalId_MorY + "hogehoge");
   const split: string[] = (goalId_MorY ?? "").split("/");
   const goalId = split[0];
   const MorY = split[1];
@@ -30,11 +29,9 @@ export function TodoCardUI() {
       setPlans(plans as plans[]);
     };
     fetchPlan(goalId as string);
-    console.log(plans + "hoge");
+    // console.log(plans + "hoge");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [goalId]);
-  // console.log(plans);
-  // let count = 0;
   return (
     <>
       {Array.from({ length: parseInt(deadlineNum) }).map((_, i) => (
@@ -42,17 +39,25 @@ export function TodoCardUI() {
           <h2 key={i} className="font-bold text-3xl">
             {`${i + 1}${MorY === "年" ? "年目" : "ヵ月目"}`}
           </h2>
-          {plans?.map((card: plans) =>
-            card.periodNum == i + 1 ? (
-              <TodoCard
-                key={card.uniqueId}
-                title={card.title}
-                deadline={card.deadline}
-              />
-            ) : null
-          )}
+          <Suspense fallback={<Loading />}>
+            {plans?.map((card: plans) =>
+              card.periodNum == i + 1 ? (
+                <TodoCard
+                  key={card.uniqueId}
+                  id={card.uniqueId}
+                  bool={card.isDone}
+                  title={card.title}
+                  deadline={card.deadline}
+                />
+              ) : null
+            )}
+          </Suspense>
         </div>
       ))}
     </>
   );
+
+  function Loading() {
+    return <h3>🌀 Loading...</h3>;
+  }
 }

@@ -8,7 +8,6 @@ import {
 } from "@/components/ui/select";
 
 import { atom, useAtom } from "jotai";
-// import { atomWithStorage } from "jotai/utils";
 import { useEffect } from "react";
 
 export const selectGoalIder = atom<null | string>(null);
@@ -17,9 +16,8 @@ export function SelectUiParts({
 }: {
   data: { title: string; goalId: string; MorY: string; deadlineNum: number }[];
 }) {
-  const [selectGoalId, setSelectGoalId] = useAtom(selectGoalIder);
+  const [, setSelectGoalId] = useAtom(selectGoalIder);
   const handleValue = (goalId_MorY: string) => {
-    console.log(goalId_MorY);
     setSelectGoalId(goalId_MorY);
   };
 
@@ -32,7 +30,6 @@ export function SelectUiParts({
         deadlineNum: number;
       }[]
     ) => {
-      console.log(`${data[0].goalId}/${data[0].MorY}/${data[0].deadlineNum}`);
       setSelectGoalId(
         `${data[0].goalId}/${data[0].MorY}/${data[0].deadlineNum}`
       );
@@ -49,9 +46,6 @@ export function SelectUiParts({
         <SelectValue />
       </SelectTrigger>
       <SelectContent>
-        {/* <SelectItem value="light">Light</SelectItem>
-        <SelectItem value="dark">Dark</SelectItem>
-        <SelectItem value="system">System</SelectItem> */}
         {data?.map((a) => (
           <SelectItem
             key={a.goalId}

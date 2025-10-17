@@ -1,4 +1,5 @@
-export default function Page() {
+"use server";
+export default async function Page() {
   return (
     <div className="space-y-6">
       <h1 className="text-4xl font-bold text-gray-900">ユーザー設定</h1>

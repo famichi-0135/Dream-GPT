@@ -1,6 +1,7 @@
+"use server";
 import { DIYCalender } from "@/components/diyCalender";
 
-export default function Page() {
+export default async function Page() {
   return (
     <div className="space-y-6">
       <h1 className="text-4xl font-bold text-gray-900">カレンダー</h1>

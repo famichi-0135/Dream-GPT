@@ -7,6 +7,8 @@ export type sidebarType = {
 export type todoList = {
   title: string;
   deadline: string;
+  id: string
+  bool:boolean
 };
 
 export type todoData = {
