@@ -1,25 +1,8 @@
 "use server";
 // import { PrismaClient } from "@/generated/prisma";
 import { createClient } from "@/utils/supabase/server";
-import { NextResponse } from "next/server";
-
-// const prisma = new PrismaClient();
-
-// use `prisma` in your application to read and write data in your DB
-// export async function insertUserId(id: string) {
-//   try {
-//     const user = prisma.users.create({
-//       data: {
-//         userId: id,
-//       },
-//     });
-
-//     console.log(user);
-//   } catch (error) {
-//     console.error("Error fetching user Credit", error);
-//     return 0;
-//   }
-// }
+import { todoList } from "./type";
+import { error } from "console";
 
 export async function selectAllGoals() {
   try {
@@ -45,11 +28,27 @@ export async function selectAllPlans(goalID: string) {
       .select()
       .eq("goalId", goalID)
       .eq("userId", user?.id)
-      .order("periodNum", { ascending: true });
+      .order("deadline", { ascending: true });
     console.log(data + "hoge");
     console.log(error);
     return data;
   } catch (error) {
     console.error(error);
+  }
+}
+
+export async function changePlansBool(props: todoList) {
+  try {
+    const { id, bool } = props;
+    const supaase = await createClient();
+    const response = await supaase
+      .from("Plans")
+      .update({ isDone: !bool })
+      .eq("uniqueId", id);
+    if (response.error) {
+      throw new Error(`${response.error}`);
+    }
+  } catch (err) {
+    console.error(err);
   }
 }
