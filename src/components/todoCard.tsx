@@ -4,6 +4,7 @@ import { useAtomValue, useSetAtom } from "jotai";
 import { Plans, plans } from "./part/todoCard";
 import { useEffect, useState } from "react";
 import { updateSession } from "@/utils/supabase/middleware";
+import { PopOver } from "./part/popOver";
 
 export function TodoCard(props: todoList) {
   const { title, deadline, id, bool } = props;
@@ -46,25 +47,7 @@ export function TodoCard(props: todoList) {
               <span className="text-gray-500">期日: {deadline}</span>
             </div>
           </div>
-
-          <button
-            onClick={e => console.log("hoge")}
-            className="text-gray-400 hover:text-gray-600">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth="2"
-              stroke="currentColor"
-              className="w-5 h-5"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"
-              />
-            </svg>
-          </button>
+          <PopOver />
         </div>
       </div>
     </div>
