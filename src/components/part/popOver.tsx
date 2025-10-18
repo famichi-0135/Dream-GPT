@@ -4,7 +4,9 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { atom, useAtom } from "jotai";
+import { deletePlan } from "@/lib/query";
+import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
+import { plans, Plans } from "./todoCard";
 // import { useState } from "react";
 
 const isEditStateH = {
@@ -24,8 +26,24 @@ export function PopOver({
   deadline: string;
 }) {
   const [editState, setEditState] = useAtom(isEditState);
+  const setAllPlans = useSetAtom(Plans);
+  const allPlans = useAtomValue(Plans);
   const handleEdit = () => {
     setEditState({ isEdit: true, uniqueId });
+  };
+
+  const handleDelete = async () => {
+    await deletePlan(uniqueId);
+    // この下にsetAllPlansの該当するプランの削除処理。
+    DeletePlans();
+  };
+
+  const DeletePlans = () => {
+    const updateAllPlans: plans[] = (allPlans ?? []).filter(
+      (p) => p.uniqueId !== uniqueId
+    );
+    // console.log(updateAllPlans);
+    setAllPlans(updateAllPlans);
   };
   return (
     <Popover>
@@ -63,6 +81,7 @@ export function PopOver({
             <Button
               variant="ghost"
               className="text-md text-red-800 hover:text-red-700"
+              onClick={() => handleDelete()}
             >
               削除
             </Button>

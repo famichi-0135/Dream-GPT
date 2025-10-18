@@ -2,8 +2,8 @@
 // import { PrismaClient } from "@/generated/prisma";
 import { createClient } from "@/utils/supabase/server";
 import { todoList } from "./type";
-import { error } from "console";
-import { title } from "process";
+import { redirect } from "next/navigation";
+
 
 export async function selectAllGoals() {
   try {
@@ -66,5 +66,45 @@ export async function changePlanTitle(uniqueId: string, editTitle: string) {
     }
   } catch (err) {
     console.error(err);
+  }
+}
+
+export async function deletePlan(uniqueId: string) {
+  try {
+    const supabase = await createClient();
+    const { error } = await supabase
+      .from("Plans")
+      .delete()
+      .eq("uniqueId", uniqueId);
+    if (error) {
+      throw new Error(`${error}`);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+export async function deleteGoal(goalId: string) {
+  try {
+    const supabase = await createClient();
+
+    const response2 = await supabase
+      .from("Plans")
+      .delete()
+      .eq("goalId", goalId);
+
+    const response1 = await supabase
+      .from("Goals")
+      .delete()
+      .eq("goalId", goalId);
+
+    if (!response1 || !response2) {
+      throw new Error(`${response1}-${response2}`);
+    }
+    
+  } catch (err) {
+    console.error(err);
+  } finally {
+    redirect('./');
   }
 }
