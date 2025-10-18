@@ -5,6 +5,7 @@ import { selectGoalIder } from "./selectParts";
 import { selectAllPlans } from "@/lib/query";
 import { Suspense, useEffect, useState } from "react";
 import { TodoCard } from "../todoCard";
+import { UUID } from "crypto";
 
 export interface plans {
   uniqueId: string;
@@ -12,8 +13,8 @@ export interface plans {
   title: string;
   deadline: string;
   isDone: boolean;
-  goalId: string;
-  userId: string;
+  goalId: UUID;
+  userId: UUID;
 }
 export const Plans = atom<null | plans[]>(null);
 export function TodoCardUI() {

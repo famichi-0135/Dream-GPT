@@ -30,31 +30,41 @@ export function SelectUiParts({
         deadlineNum: number;
       }[]
     ) => {
-      setSelectGoalId(
-        `${data[0].goalId}/${data[0].MorY}/${data[0].deadlineNum}`
-      );
+      if (data.length >= 1) {
+        setSelectGoalId(
+          `${data[0].goalId}/${data[0].MorY}/${data[0].deadlineNum}`
+        );
+      }
     };
     setSelector(data);
   }, []);
 
-  return (
-    <Select
-      defaultValue={`${data[0].goalId}/${data[0].MorY}/${data[0].deadlineNum}`}
-      onValueChange={(value: string) => handleValue(value)}
-    >
-      <SelectTrigger className="w-[60%]">
-        <SelectValue />
-      </SelectTrigger>
-      <SelectContent>
-        {data?.map((a) => (
-          <SelectItem
-            key={a.goalId}
-            value={`${a.goalId}/${a.MorY}/${a.deadlineNum}`}
-          >
-            {a.title}
-          </SelectItem>
-        ))}
-      </SelectContent>
-    </Select>
-  );
+  if (data.length < 1) {
+    return (
+      <div>
+        <p className="font-bold text-2xl">データなし</p>
+      </div>
+    );
+  } else {
+    return (
+      <Select
+        defaultValue={`${data[0].goalId}/${data[0].MorY}/${data[0].deadlineNum}`}
+        onValueChange={(value: string) => handleValue(value)}
+      >
+        <SelectTrigger className="w-[60%]">
+          <SelectValue />
+        </SelectTrigger>
+        <SelectContent>
+          {data?.map((a) => (
+            <SelectItem
+              key={a.goalId}
+              value={`${a.goalId}/${a.MorY}/${a.deadlineNum}`}
+            >
+              {a.title}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+    );
+  }
 }

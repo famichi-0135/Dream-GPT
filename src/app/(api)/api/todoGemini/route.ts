@@ -153,6 +153,7 @@ export async function POST(req: NextRequest) {
       .update({ ticket: minusOneTicket })
       .eq("userId", `${user?.id}`);
 
+    //ここでエラーを吐くだけだとクライアントサイドでエラーになるからどうにかする必要あり。
     if (decrementError) {
       throw new Error(`エラー：${decrementError.message}`);
     }
