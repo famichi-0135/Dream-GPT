@@ -1,4 +1,5 @@
 "use server";
+import { Progress } from "@/components/part/progress";
 import { SelectUI } from "@/components/part/select";
 import { TodoCardUI } from "@/components/part/todoCard";
 import { TodoCard } from "@/components/todoCard";
@@ -18,10 +19,11 @@ export default async function Page() {
         <TodoCardUI />
       </div>
       <div
-        className="sticky bg-white bottom-5 left-[25%] 
-      w-[50%] h-15 rounded-lg border-2"
+        className="sticky bg-white bottom-5 left-[34%] 
+      lg:w-[30%] md:w-[60%] h-15 rounded-lg border-2 flex items-center justify-center"
       >
-        <p className="font-bold text-sm m-1 text-gray-700">達成率</p>
+        <p className="font-bold text-md  text-indigo-800 mr-2">達成率：</p>
+        <Progress />
       </div>
     </div>
   );
