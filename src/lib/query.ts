@@ -3,6 +3,7 @@
 import { createClient } from "@/utils/supabase/server";
 import { todoList } from "./type";
 import { error } from "console";
+import { title } from "process";
 
 export async function selectAllGoals() {
   try {
@@ -47,6 +48,21 @@ export async function changePlansBool(props: todoList) {
       .eq("uniqueId", id);
     if (response.error) {
       throw new Error(`${response.error}`);
+    }
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+export async function changePlanTitle(uniqueId: string, editTitle: string) {
+  try {
+    const supaase = await createClient();
+    const { error } = await supaase
+      .from("Plans")
+      .update({ title: editTitle })
+      .eq("uniqueId", uniqueId);
+    if (error) {
+      throw new Error(`${error}`);
     }
   } catch (err) {
     console.error(err);

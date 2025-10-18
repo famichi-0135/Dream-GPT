@@ -1,13 +1,32 @@
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { atom, useAtom } from "jotai";
+// import { useState } from "react";
 
-export function PopOver() {
+const isEditStateH = {
+  isEdit: false,
+  uniqueId: "",
+};
+export const isEditState = atom<{ isEdit: boolean; uniqueId: string }>(
+  isEditStateH
+);
+export function PopOver({
+  uniqueId,
+  title,
+  deadline,
+}: {
+  uniqueId: string;
+  title: string;
+  deadline: string;
+}) {
+  const [editState, setEditState] = useAtom(isEditState);
+  const handleEdit = () => {
+    setEditState({ isEdit: true, uniqueId });
+  };
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -31,25 +50,22 @@ export function PopOver() {
           </svg>
         </button>
       </PopoverTrigger>
-      <PopoverContent className="w-[50%]">
+      <PopoverContent className="w-30">
         <div className="grid gap-4">
           <div className="grid gap-2">
-            <div className="grid grid-cols-3 items-center gap-4">
-              <Label htmlFor="width">編集</Label>
-              <Input
-                id="width"
-                defaultValue="100%"
-                className="col-span-2 h-8"
-              />
-            </div>
-            <div className="grid grid-cols-3 items-center gap-4">
-              <Label htmlFor="delete">削除</Label>
-              <Input
-                id="width"
-                defaultValue="100%"
-                className="col-span-2 h-8"
-              />
-            </div>
+            <Button
+              variant="ghost"
+              className="text-md text-gray-700"
+              onClick={() => handleEdit()}
+            >
+              編集
+            </Button>
+            <Button
+              variant="ghost"
+              className="text-md text-red-800 hover:text-red-700"
+            >
+              削除
+            </Button>
           </div>
         </div>
       </PopoverContent>

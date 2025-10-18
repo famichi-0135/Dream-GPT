@@ -48,6 +48,7 @@ export function TodoCardUI() {
                   bool={card.isDone}
                   title={card.title}
                   deadline={card.deadline}
+                  periodNum={card.periodNum}
                 />
               ) : null
             )}

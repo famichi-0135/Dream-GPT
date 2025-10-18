@@ -7,8 +7,9 @@ export type sidebarType = {
 export type todoList = {
   title: string;
   deadline: string;
-  id: string
-  bool:boolean
+  id: string;
+  bool: boolean;
+  periodNum:number
 };
 
 export type todoData = {
