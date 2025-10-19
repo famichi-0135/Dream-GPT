@@ -34,8 +34,6 @@ export default function Page() {
     });
 
     const text = await res.json();
-    // const prevTodos = localStorage.getItem("todos");
-    localStorage.setItem("todos", text.data);
     console.log(text.data);
   };
 

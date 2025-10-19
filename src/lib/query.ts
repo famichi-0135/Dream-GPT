@@ -105,6 +105,6 @@ export async function deleteGoal(goalId: string) {
   } catch (err) {
     console.error(err);
   } finally {
-    redirect('./');
+    redirect('../');
   }
 }

@@ -18,13 +18,7 @@ export default async function Page() {
       <div className="grid lg:grid-cols-2 md:grid-cols-1 space-x-10 space-y-8">
         <TodoCardUI />
       </div>
-      <div
-        className="sticky bg-white bottom-5 left-[34%] 
-      lg:w-[30%] md:w-[60%] h-15 rounded-lg border-2 flex items-center justify-center"
-      >
-        <p className="font-bold text-md  text-indigo-800 mr-2">達成率：</p>
-        <Progress />
-      </div>
+      <Progress />
     </div>
   );
 }
