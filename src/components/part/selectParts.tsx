@@ -41,8 +41,8 @@ export function SelectUiParts({
 
   if (data.length < 1) {
     return (
-      <div>
-        <p className="font-bold text-2xl">データなし</p>
+      <div className="border-2 border-indigo-200 p-2 rounded-lg bg-indigo-100 text-indigo-800">
+        <p className="font-bold text-2xl">該当データなし</p>
       </div>
     );
   } else {

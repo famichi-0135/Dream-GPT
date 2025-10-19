@@ -21,28 +21,30 @@ export async function POST(req: NextRequest) {
   const { goal, explain, limitNum, YearOrMonth } = body;
 
   //ユーザーIDの取得
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
 
-  //チケットが一枚以上あるか確認ないならエラー
-  const { data: selectTicket, error: selectError } = await supabase
-    .from("Users")
-    .select("ticket")
-    .eq("userId", `${user?.id}`);
-  if (selectError) {
-    throw new Error(`エラー:${selectError}`);
-  }
-  if (!selectTicket || selectTicket.length === 0) {
-    throw new Error(`残りのチケット枚数の取得に失敗`);
-  }
-
-  if (selectTicket[0].ticket === 0) {
-    throw new Error(`チケットが不足しています`);
-  }
-
-  console.log(goal, explain, limitNum, YearOrMonth);
   try {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    //チケットが一枚以上あるか確認ないならエラー
+    const { data: selectTicket, error: selectError } = await supabase
+      .from("Users")
+      .select("ticket")
+      .eq("userId", `${user?.id}`);
+    if (selectError) {
+      throw new Error(`エラー:${selectError}`);
+    }
+    if (!selectTicket || selectTicket.length === 0) {
+      throw new Error(`残りのチケット枚数の取得に失敗`);
+    }
+
+    if (selectTicket[0].ticket === 0) {
+      throw new Error(`チケットが不足しています`);
+    }
+
+    console.log(goal, explain, limitNum, YearOrMonth);
+
     //geminiでデータ取得
     const response = await ai.models.generateContent({
       model: "gemini-2.5-flash",
@@ -154,6 +156,7 @@ export async function POST(req: NextRequest) {
       .eq("userId", `${user?.id}`);
 
     //ここでエラーを吐くだけだとクライアントサイドでエラーになるからどうにかする必要あり。
+
     if (decrementError) {
       throw new Error(`エラー：${decrementError.message}`);
     }
@@ -161,7 +164,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ status: 200, data: response.text });
   } catch (err) {
     console.error((err as Error).message);
-    return NextResponse.json({ status: 500, error: err });
+    return NextResponse.json({ message: err }, { status: 400 });
   } finally {
   }
 }

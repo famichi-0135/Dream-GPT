@@ -1,5 +1,6 @@
 "use client";
 
+//グローバルステート、HooksをTodoCardコンポーネントに移行してサーバーコンポーネント化できる可能性あり。今後改修要検討
 import { atom, useAtom, useAtomValue } from "jotai";
 import { selectGoalIder } from "./selectParts";
 import { selectAllPlans } from "@/lib/query";
