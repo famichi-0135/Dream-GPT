@@ -3,7 +3,7 @@
 import { createClient } from "@/utils/supabase/server";
 import { todoList } from "./type";
 import { redirect } from "next/navigation";
-
+import { NextResponse } from "next/server";
 
 export async function selectAllGoals() {
   try {
@@ -101,10 +101,45 @@ export async function deleteGoal(goalId: string) {
     if (!response1 || !response2) {
       throw new Error(`${response1}-${response2}`);
     }
-    
   } catch (err) {
     console.error(err);
   } finally {
-    redirect('../');
+    redirect("../");
+  }
+}
+
+export async function getTicketCount() {
+  try {
+    const supabase = await createClient();
+
+    // 現在の認証ユーザーを取得
+    const {
+      data: { user },
+      error: userError,
+    } = await supabase.auth.getUser();
+
+    if (userError || !user) {
+      throw new Error("ユーザー情報の取得に失敗しました。");
+    }
+
+    // チケット枚数を取得
+    const { data, error } = await supabase
+      .from("Users")
+      .select("ticket")
+      .eq("userId", user.id)
+      .single();
+
+    if (error) {
+      throw new Error(`チケット情報の取得に失敗しました: ${error.message}`);
+    }
+
+    // 値をそのまま返す
+    return { success: true, ticket: data.ticket };
+  } catch (err) {
+    console.error(err);
+    return {
+      success: false,
+      message: (err as Error).message,
+    };
   }
 }

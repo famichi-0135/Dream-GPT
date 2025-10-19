@@ -1,4 +1,4 @@
-"use server";
+// "use server";
 import { selectAllGoals } from "@/lib/query";
 import { SelectUiParts } from "./selectParts";
 

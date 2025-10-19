@@ -5,6 +5,9 @@ import { sidebarType } from "@/lib/type";
 import { sidebarItem } from "@/lib/sidebarItem";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
+import { TicketCount } from "./part/ticketCount";
+import { Suspense } from "react";
+import { Loading } from "./part/loading";
 
 export function Sidebar() {
   const path = usePathname();
@@ -28,6 +31,9 @@ export function Sidebar() {
             </Link>
           </div>
         ))}
+        <Suspense fallback={<Loading />}>
+          <TicketCount />
+        </Suspense>
       </div>
     </div>
   );

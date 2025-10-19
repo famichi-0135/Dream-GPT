@@ -1,6 +1,7 @@
 import { DBPushDataType, todoData } from "@/lib/type";
 import { createClient } from "@/utils/supabase/server";
 import { GoogleGenAI, Type } from "@google/genai";
+import { revalidatePath } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
 
 const ai = new GoogleGenAI({});
@@ -23,6 +24,10 @@ export async function POST(req: NextRequest) {
   //ユーザーIDの取得
 
   try {
+    if (goal === "") {
+      throw new Error("必須項目が未入力です。");
+    }
+
     const {
       data: { user },
     } = await supabase.auth.getUser();
@@ -166,5 +171,6 @@ export async function POST(req: NextRequest) {
     console.error((err as Error).message);
     return NextResponse.json({ message: err }, { status: 400 });
   } finally {
+    // revalidatePath("/");
   }
 }
