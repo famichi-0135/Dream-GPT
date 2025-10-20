@@ -1,6 +1,6 @@
 "use server";
 // import { PrismaClient } from "@/generated/prisma";
-import { createClient } from "@/utils/supabase/server";
+import { createClient, createSClient } from "@/utils/supabase/server";
 import { todoList } from "./type";
 import { redirect } from "next/navigation";
 import { NextResponse } from "next/server";
@@ -178,5 +178,39 @@ export async function deleteAllUserData() {
     return { success: true, status: 200, err: null };
   } catch (err) {
     return { success: false, status: 400, err: err };
+  }
+}
+
+export async function deleteUserAcount() {
+  try {
+    const supabase = await createSClient();
+
+    const {
+      data: { user },
+      error: userError,
+    } = await supabase.auth.getUser();
+
+    if (!user) {
+      throw new Error(`${userError}`);
+    }
+
+    const response1 = await supabase
+      .from("Users")
+      .delete()
+      .eq("userId", user.id);
+
+    if (response1.error) {
+      throw new Error(`${response1.error}`);
+    }
+
+    const { data, error } = await supabase.auth.admin.deleteUser(user.id);
+
+    if (error) {
+      throw new Error(`${error}`);
+    }
+
+    return { success: true, status: 200, err: null, data: data };
+  } catch (err) {
+    return { success: true, status: 400, err: err };
   }
 }

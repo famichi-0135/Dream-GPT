@@ -10,8 +10,11 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { deleteUserAcount } from "@/lib/query";
 import { DialogClose } from "@radix-ui/react-dialog";
+import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 export function DeleteAcountDialog() {
   const [isMounted, setIsMounted] = useState(false);
@@ -24,9 +27,19 @@ export function DeleteAcountDialog() {
     return null;
   }
 
+  const handleDeleteAcount = async () => {
+    const res = await deleteUserAcount();
+    if (res.success === true) {
+      toast.success("アカウントの削除に成功しました。");
+      redirect(".");
+    } else if (res.success === false) {
+      toast.error("アカウントの削除に失敗しました。");
+    }
+  };
+
   return (
     <Dialog>
-      <DialogTrigger asChild  >
+      <DialogTrigger asChild>
         <Button variant="destructive">消去</Button>
       </DialogTrigger>
       <DialogContent>
@@ -42,10 +55,10 @@ export function DeleteAcountDialog() {
           <DialogClose asChild={true}>
             <Button variant="outline">閉じる</Button>
           </DialogClose>
-          <Button variant="destructive">アカウントデータを削除する</Button>
+          <Button onClick={() => handleDeleteAcount()} variant="destructive">
+            アカウントデータを削除する
+          </Button>
         </DialogFooter>
-
-        {/* </DialogFooter> */}
       </DialogContent>
     </Dialog>
   );
