@@ -17,13 +17,11 @@ import { todoRequest } from "@/app/(api)/api/todoGemini/route";
 import { useFormStatus } from "react-dom";
 import { Loader2Icon } from "lucide-react";
 import { toast } from "sonner";
-import { useRouter } from "next/navigation";
 import { atom, useAtom } from "jotai";
 
 export const refreshAtom = atom(0);
 export function CreatePlan() {
   const [, setRefresh] = useAtom(refreshAtom);
-  const router = useRouter();
   const [YearOrMonth, setYearOrMonth] = useState<string>("ヵ月");
   const handleForm = async (formData: FormData) => {
     const promptBody: todoRequest = {
