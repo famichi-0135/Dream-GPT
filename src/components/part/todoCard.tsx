@@ -7,6 +7,7 @@ import { selectAllPlans } from "@/lib/query";
 import { Suspense, useEffect, useState } from "react";
 import { TodoCard } from "../todoCard";
 import { UUID } from "crypto";
+import { Loading } from "./loading";
 
 export interface plans {
   uniqueId: string;
@@ -59,8 +60,4 @@ export function TodoCardUI() {
       ))}
     </>
   );
-
-  function Loading() {
-    return <h3>🌀 Loading...</h3>;
-  }
 }

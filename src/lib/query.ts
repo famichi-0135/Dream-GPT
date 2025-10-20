@@ -1,9 +1,9 @@
 "use server";
 // import { PrismaClient } from "@/generated/prisma";
-import { createClient } from "@/utils/supabase/server";
+import { createClient, createSClient } from "@/utils/supabase/server";
 import { todoList } from "./type";
 import { redirect } from "next/navigation";
-
+import { NextResponse } from "next/server";
 
 export async function selectAllGoals() {
   try {
@@ -101,10 +101,116 @@ export async function deleteGoal(goalId: string) {
     if (!response1 || !response2) {
       throw new Error(`${response1}-${response2}`);
     }
-    
   } catch (err) {
     console.error(err);
   } finally {
-    redirect('../');
+    redirect("../");
+  }
+}
+
+export async function getTicketCount() {
+  try {
+    const supabase = await createClient();
+
+    // 現在の認証ユーザーを取得
+    const {
+      data: { user },
+      error: userError,
+    } = await supabase.auth.getUser();
+
+    if (userError || !user) {
+      throw new Error("ユーザー情報の取得に失敗しました。");
+    }
+
+    // チケット枚数を取得
+    const { data, error } = await supabase
+      .from("Users")
+      .select("ticket")
+      .eq("userId", user.id)
+      .single();
+
+    if (error) {
+      throw new Error(`チケット情報の取得に失敗しました: ${error.message}`);
+    }
+
+    // 値をそのまま返す
+    return { success: true, ticket: data.ticket };
+  } catch (err) {
+    console.error(err);
+    return {
+      success: false,
+      message: (err as Error).message,
+    };
+  }
+}
+
+export async function deleteAllUserData() {
+  try {
+    const supabase = await createClient();
+
+    // 現在の認証ユーザーを取得
+    const {
+      data: { user },
+      error: userError,
+    } = await supabase.auth.getUser();
+
+    if (userError || !user) {
+      throw new Error("ユーザー情報の取得に失敗しました。");
+    }
+
+    const response2 = await supabase
+      .from("Plans")
+      .delete()
+      .eq("userId", user.id);
+
+    if (response2.error) {
+      throw new Error("プラン関連情報の削除に失敗しました。");
+    }
+    const response1 = await supabase
+      .from("Goals")
+      .delete()
+      .eq("userId", user.id);
+
+    if (response1.error) {
+      throw new Error("目標関連情報の削除に失敗しました。");
+    }
+
+    return { success: true, status: 200, err: null };
+  } catch (err) {
+    return { success: false, status: 400, err: err };
+  }
+}
+
+export async function deleteUserAcount() {
+  try {
+    const supabase = await createSClient();
+
+    const {
+      data: { user },
+      error: userError,
+    } = await supabase.auth.getUser();
+
+    if (!user) {
+      throw new Error(`${userError}`);
+    }
+
+    const response1 = await supabase
+      .from("Users")
+      .delete()
+      .eq("userId", user.id);
+
+    if (response1.error) {
+      throw new Error(`${response1.error}`);
+    }
+
+    const { data, error } = await supabase.auth.admin.deleteUser(user.id);
+
+    if (error) {
+      throw new Error(`${error}`);
+    }
+
+    return { success: true, status: 200, err: null, data: data };
+  } catch (err) {
+    return { success: true, status: 400, err: err };
   }
 }
