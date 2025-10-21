@@ -15,7 +15,7 @@ export default async function Page() {
         <SelectUI />
       </div>
 
-      <div className="grid lg:grid-cols-2 md:grid-cols-1 space-x-10 space-y-8">
+      <div className="grid lg:grid-cols-2 md:grid-cols-1 lg:space-x-10 space-y-8">
         <TodoCardUI />
       </div>
       <Progress />

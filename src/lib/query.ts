@@ -64,8 +64,10 @@ export async function changePlanTitle(uniqueId: string, editTitle: string) {
     if (error) {
       throw new Error(`${error}`);
     }
+    return { success: true, status: 200 };
   } catch (err) {
     console.error(err);
+    return { success: false, status: 400 };
   }
 }
 
@@ -79,8 +81,11 @@ export async function deletePlan(uniqueId: string) {
     if (error) {
       throw new Error(`${error}`);
     }
+
+    return { success: true, status: 200 };
   } catch (err) {
     console.error(err);
+    return { success: false, status: 400 };
   }
 }
 

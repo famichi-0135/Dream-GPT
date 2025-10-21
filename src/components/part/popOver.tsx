@@ -7,6 +7,7 @@ import {
 import { deletePlan } from "@/lib/query";
 import { atom, useAtom, useAtomValue, useSetAtom } from "jotai";
 import { plans, Plans } from "./todoCard";
+import { toast } from "sonner";
 // import { useState } from "react";
 
 const isEditStateH = {
@@ -33,9 +34,14 @@ export function PopOver({
   };
 
   const handleDelete = async () => {
-    await deletePlan(uniqueId);
+    const res = await deletePlan(uniqueId);
+    if (res.success === true) {
+      toast.success("プランの削除に成功しました。");
+      DeletePlans();
+    } else {
+      toast.error("プランの削除に失敗しました。");
+    }
     // この下にsetAllPlansの該当するプランの削除処理。
-    DeletePlans();
   };
 
   const DeletePlans = () => {

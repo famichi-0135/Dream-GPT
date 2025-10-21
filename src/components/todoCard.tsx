@@ -6,6 +6,7 @@ import { ChangeEvent, useState } from "react";
 import { isEditState, PopOver } from "./part/popOver";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
+import { toast } from "sonner";
 
 export function TodoCard(props: todoList) {
   const { title, deadline, id, bool, periodNum } = props;
@@ -25,6 +26,7 @@ export function TodoCard(props: todoList) {
     isEdit({ ...edit, isEdit: false });
     setEditTitle(title);
     console.log(edit.isEdit);
+    toast.warning("編集を中止しました。 ");
   };
 
   const handleChangeTitle = (e: ChangeEvent<HTMLInputElement>) => {
@@ -33,10 +35,15 @@ export function TodoCard(props: todoList) {
   };
 
   const handleEdit = async () => {
-    await changePlanTitle(edit.uniqueId, editTitle);
-    isEdit({ ...edit, isEdit: false });
-    UpdatePlansTitle();
-    console.log(edit.isEdit);
+    const res = await changePlanTitle(edit.uniqueId, editTitle);
+    if (res.success === true) {
+      isEdit({ ...edit, isEdit: false });
+      UpdatePlansTitle();
+      console.log(edit.isEdit);
+      toast.success("プランの編集を保存しました。");
+    } else {
+      toast.error("編集の保存に失敗しました。");
+    }
   };
 
   const UpdatePlansBool = () => {
