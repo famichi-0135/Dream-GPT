@@ -57,23 +57,32 @@ export function DIYCalender() {
   }
 
   return (
-    <div className="mx-4">
-      <div className="border-1 rounded-4xl bg-white shadow-md hover:shadow-lg transition p-8">
-        <div className="flex items-center justify-between mb-10">
-          <Button onClick={() => handleClick("minus")} className="mx-10">
+    <div className=" m-2">
+      <div className="flex border-1 rounded-3xl bg-white shadow-md hover:shadow-lg transition p-8 flex-col items-center justify-center">
+        <div className="flex w-full items-center justify-between mb-4">
+          <Button
+            variant="link"
+            onClick={() => handleClick("minus")}
+            className="lg:ml-5 md:ml-2"
+          >
             前の月
           </Button>
           <div className="flex-col">
-            <p className="text-sm">{year}年</p>
-            <h1 className="text-3xl font-bold">{month + 1}月</h1>
+            <div className="flex w-full items-center space-x-1 justify-between">
+              <p className="text-sm">{year}年</p>
+              <h1 className="text-xl font-bold">{month + 1}月</h1>
+            </div>
           </div>
-
-          <Button onClick={() => handleClick("plus")} className="mx-10">
+          <Button
+            variant="link"
+            onClick={() => handleClick("plus")}
+            className="lg:mr-5 md:mr-2"
+          >
             次の月
           </Button>
         </div>
 
-        <table className=" lg:w-4xl md:w-lg sm:w-sm lg:h-4xl md:h-xl flex-col">
+        <table className="lg:w-3xl md:w-md sm:w-md lg:h-3xl md:h-xl sm:h-lg flex-col">
           <thead>
             <tr>
               <th className="pb-4 text-xl text-red-700">日</th>
