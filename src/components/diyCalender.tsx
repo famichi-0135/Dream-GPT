@@ -58,8 +58,10 @@ export function DIYCalender() {
 
   return (
     <div className=" m-2">
-      <div className="flex border-1 rounded-3xl bg-white shadow-md hover:shadow-lg transition p-8 flex-col items-center justify-center">
-        <div className="flex w-full items-center justify-between mb-4">
+      <div className="flex border-1 rounded-3xl bg-white shadow-md hover:shadow-lg transition'
+      
+      p-8 flex-col items-center justify-center">
+        <div className="flex w-full items-center justify-center mb-4 ">
           <Button
             variant="link"
             onClick={() => handleClick("minus")}
