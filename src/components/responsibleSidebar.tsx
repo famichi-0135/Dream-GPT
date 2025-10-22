@@ -32,7 +32,7 @@ export function RepSideBar() {
     <Sheet>
       {/* <SheetTrigger asChild onClick={() => setOpen(true)}> */}
       <SheetTrigger asChild>
-        <Button variant="outline" size="icon">
+        <Button className="" variant="outline" size="icon">
           <Menu />
         </Button>
       </SheetTrigger>
