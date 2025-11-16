@@ -9,6 +9,6 @@ services:
     ports:
       - "3000:3000"
     environment:
-      GEMINI_API_KEY: AIzaSyBrjLnjmv3EP6_P63nuZsn0a2KX7r2K6ss
+      GEMINI_API_KEY: "${GEMINI_API_KEY}"
       CHOKIDAR_USEPOLLING: "true" # Docker 内での watcher を安定させる
     command: bun run start
