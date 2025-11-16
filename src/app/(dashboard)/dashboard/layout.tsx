@@ -1,5 +1,4 @@
 import { Navbar } from "@/components/navbar";
-import { Menu } from "@/components/part/humbergar";
 import { RepSideBar } from "@/components/responsibleSidebar";
 import { Sidebar } from "@/components/sidebar";
 

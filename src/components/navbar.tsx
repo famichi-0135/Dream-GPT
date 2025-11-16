@@ -1,10 +1,8 @@
 import { signOut } from "@/app/(auth)/auth/login/actions";
 import { createClient } from "@/utils/supabase/client";
 import Link from "next/link";
-import { LogoutBtn } from "./ui/logoutButton";
-import Image from "next/image";
 import { Button } from "./ui/button";
-import { Menu } from "./part/humbergar";
+
 
 export async function Navbar() {
   try {

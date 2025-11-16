@@ -40,12 +40,10 @@ export function CreatePlan() {
     if (text.status === 200) {
       toast.success("計画の作成に成功しました。Todoページより確認ください");
       console.log("成功");
-      // redirect("./dashboard/todo", RedirectType.replace);
+
       setRefresh((r) => r + 1);
     } else {
-      toast.error(
-        "計画の作成に失敗しました。チケットの不足または内部エラーの可能性があります。"
-      );
+      toast.error(`計画の作成に失敗しました。`);
       console.log("失敗");
     }
   };

@@ -1,0 +1,14 @@
+version: "3.9"
+
+services:
+  app:
+    container_name: dream-gpt-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      GEMINI_API_KEY: AIzaSyBrjLnjmv3EP6_P63nuZsn0a2KX7r2K6ss
+      CHOKIDAR_USEPOLLING: "true" # Docker 内での watcher を安定させる
+    command: bun run start

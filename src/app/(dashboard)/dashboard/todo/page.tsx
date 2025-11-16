@@ -1,11 +1,6 @@
-
 import { Progress } from "@/components/part/progress";
 import { SelectUI } from "@/components/part/select";
 import { TodoCardUI } from "@/components/part/todoCard";
-import { TodoCard } from "@/components/todoCard";
-import { Button } from "@/components/ui/button";
-import { todoData } from "@/lib/type";
-// import { useEffect, useState } from "react";
 
 export default async function Page() {
   return (
