@@ -4,7 +4,7 @@
 import { atom, useAtom, useAtomValue } from "jotai";
 import { selectGoalIder } from "./selectParts";
 import { selectAllPlans } from "@/lib/query";
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, useEffect } from "react";
 import { TodoCard } from "../todoCard";
 import { UUID } from "crypto";
 import { Loading } from "./loading";

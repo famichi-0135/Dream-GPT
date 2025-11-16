@@ -1,7 +1,6 @@
 import { DBPushDataType, todoData } from "@/lib/type";
 import { createClient } from "@/utils/supabase/server";
 import { GoogleGenAI, Type } from "@google/genai";
-import { revalidatePath } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
 
 const ai = new GoogleGenAI({});
@@ -53,7 +52,7 @@ export async function POST(req: NextRequest) {
     //geminiでデータ取得
     const response = await ai.models.generateContent({
       model: "gemini-2.5-flash",
-      contents: `${goal}を${year}/${month}/${date}から${limitNum}${YearOrMonth}以内で達成するためのベストプランを考案してください。以下の指示も必ず守ること。「${explain}」`,
+      contents: `「${goal}」という目標を${year}/${month}/${date}から${limitNum}${YearOrMonth}以内で達成するためのベストプランを考案してください。以下の指示も必ず守ること。「${explain}」`,
       config: {
         responseMimeType: "application/json",
         responseSchema: {
@@ -171,6 +170,5 @@ export async function POST(req: NextRequest) {
     console.error((err as Error).message);
     return NextResponse.json({ message: err }, { status: 400 });
   } finally {
-    // revalidatePath("/");
   }
 }

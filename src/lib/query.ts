@@ -3,7 +3,6 @@
 import { createClient, createSClient } from "@/utils/supabase/server";
 import { todoList } from "./type";
 import { redirect } from "next/navigation";
-import { NextResponse } from "next/server";
 
 export async function selectAllGoals() {
   try {
@@ -11,6 +10,9 @@ export async function selectAllGoals() {
     const { data, error } = await supabase
       .from("Goals")
       .select("title, goalId, MorY, deadlineNum");
+    if (error) {
+      throw new Error(`${error}`);
+    }
     console.log(data);
     return data;
   } catch (error) {

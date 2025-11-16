@@ -37,6 +37,7 @@ export function SelectUiParts({
       }
     };
     setSelector(data);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (data.length < 1) {
