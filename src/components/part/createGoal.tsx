@@ -23,6 +23,8 @@ export const refreshAtom = atom(0);
 export function CreatePlan() {
   const [, setRefresh] = useAtom(refreshAtom);
   const [YearOrMonth, setYearOrMonth] = useState<string>("ヵ月");
+
+  
   const handleForm = async (formData: FormData) => {
     const promptBody: todoRequest = {
       goal: formData.get("goal") as string,

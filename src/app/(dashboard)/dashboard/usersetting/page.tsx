@@ -2,7 +2,6 @@ import { DeleteAcount } from "@/components/part/settingParts/deleteAcount";
 import { DeleteUsersData } from "@/components/part/settingParts/deleteAllUserDatas";
 import { SelectLevel } from "@/components/part/settingParts/selectLecel";
 
-// "use server";
 export default async function Page() {
   return (
     <div className="space-y-6">
