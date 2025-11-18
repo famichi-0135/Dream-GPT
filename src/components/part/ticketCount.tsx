@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { refreshAtom } from "./createGoal";
 
-export function TicketCount() {
+export function   TicketCount() {
   const [ticket, setTicket] = useState();
   const [refresh] = useAtom(refreshAtom);
   useEffect(() => {

@@ -3,6 +3,7 @@
 import { createClient, createSClient } from "@/utils/supabase/server";
 import { todoList } from "./type";
 import { redirect } from "next/navigation";
+import { toast } from "sonner";
 
 export async function selectAllGoals() {
   try {
@@ -140,7 +141,6 @@ export async function getTicketCount() {
       throw new Error(`チケット情報の取得に失敗しました: ${error.message}`);
     }
 
-    // 値をそのまま返す
     return { success: true, ticket: data.ticket };
   } catch (err) {
     console.error(err);
