@@ -12,4 +12,4 @@ services:
       - "3000:3000"
     environment:
       CHOKIDAR_USEPOLLING: "true" # Docker 内での watcher を安定させる
-    command: bun run start
+    command: npm run start
