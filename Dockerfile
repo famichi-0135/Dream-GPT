@@ -1,12 +1,12 @@
-FROM oven/bun:latest
+FROM node:25-alpine3.21
 
 WORKDIR /app
 
-COPY package.json bun.lock ./
-RUN bun install
+COPY package.json package-lock.json ./
+RUN npm install
 
 COPY . .
 
-RUN bun run build
+RUN npm run build
 
 EXPOSE 3000
